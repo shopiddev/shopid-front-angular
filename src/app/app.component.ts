@@ -13,8 +13,8 @@ export class AppComponent {
 	
 	ngOnInit() {
 
-/*	
-test : 
+/* 
+test :
 	this.api.Login("a","b").subscribe((res) => {
   
          alert(res.message);
@@ -26,8 +26,8 @@ test :
 			});
   
     });
-*/	
-	
+
+*/
 	
 	
 	}
