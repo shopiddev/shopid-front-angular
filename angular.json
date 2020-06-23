@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "shopid-front-angular"
+    }
+  },
+  "defaultProject": "shopid-front-angular",
+  "cli": {
+    "analytics": "663c0112-64d4-4057-89b9-9851a211fb42"
+  }
 }
