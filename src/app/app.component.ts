@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 
 import { ShopidHttpApiService } from './services/shopid-http-api.service';
 
+import { catchError} from 'rxjs/operators';
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,12 +12,14 @@ import { ShopidHttpApiService } from './services/shopid-http-api.service';
 })
 export class AppComponent {
 	
-  constructor(private api: ShopidHttpApiService) { }
+  constructor(public api: ShopidHttpApiService) { }
 	
 	ngOnInit() {
+		
+		
+			
 
-/* 
-test :
+
 	this.api.Login("a","b").subscribe((res) => {
   
          alert(res.message);
@@ -27,7 +32,7 @@ test :
   
     });
 
-*/
+
 	
 	
 	}
