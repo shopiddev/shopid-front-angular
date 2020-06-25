@@ -10,6 +10,8 @@ import { AuthService } from './services/auth.service';
 import { AddnewComponent } from './addnew/addnew.component';
 
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 const appRoutes: Routes = [
 
@@ -24,7 +26,9 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    AddnewComponent
+    AddnewComponent,
+    LoginComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
