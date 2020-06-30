@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpApiService } from './http-api.service';
+import { FireMessageService } from './fire-message.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,25 +9,30 @@ export class ShopidHttpApiService {
 
 status = "idle";
 
-  constructor(private http: HttpApiService) {
-	  var parent = this;
-	  
-
+  constructor(private http: HttpApiService , private fm: FireMessageService) {
+   
+   var self = this;
+	 
    
    this.http.onRequest = function () {
-	   parent.status = "request ...";  
+	   self.status = "request ...";  
    }
    
-   this.http.onFinalize = function () {
-	   parent.status = "idle";  
+   this.http.onFinalize = function (message) {	   
+	   self.status = "idle";   
    }
-   
    
    this.http.onError = function (e) {
-	   parent.status = e;
-	   alert("err");
+	   self.status = e;
+	   alert(e);
    }
    
+   
+   this.http.onMessage = function (m) {
+      
+	 self.fm.fire(m);
+	  
+   }
    
    
   }

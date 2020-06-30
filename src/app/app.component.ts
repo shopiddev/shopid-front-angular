@@ -18,14 +18,14 @@ export class AppComponent {
 		
 		
 			
-
+/*
 		 	this.api.Get("p1").subscribe((res2) => {
   
 				alert(res2.message);
   
 			});
 
-
+*/
 	
 	
 	}

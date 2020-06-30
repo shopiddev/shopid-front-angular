@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { ShopidHttpApiService } from '../services/shopid-http-api.service';
 
 @Component({
@@ -18,9 +17,11 @@ password;
   }
   
     signup() {
-		this.api.Post("signup/",{"username":this.username,"password":this.password}).subscribe((response)=>{
+		this.api.Post("signup",{"username":this.username,"password":this.password}).subscribe((response)=>{
 			
-			alert(response.message);
+            if ("token" in response) {
+				 localStorage.setItem('token', response.token);
+			} 
 			
 		});
 	}

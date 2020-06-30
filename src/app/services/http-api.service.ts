@@ -31,11 +31,14 @@ export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 100
 })
 export class HttpApiService {
 
-apiurl = "http://echo.jsontest.com/status/ok/message/";
+apiurl = "http://echo.jsontest.com/message/";
+//apiurl = "http://localhost/j.php?";
+
 
 onError;
 onRequest;
 onFinalize;
+onMessage;
 
 constructor(private http: HttpClient) { }
 
@@ -44,8 +47,17 @@ constructor(private http: HttpClient) { }
 
 get(rout) {
 	this.onRequest();
-	return this.http.get<apimessage>(this.apiurl+rout).pipe(
+	return this.http.get<any>(this.apiurl+rout).pipe(
      retryWithBackoff(500),	
+	 
+	 tap((data)=>{
+		 
+		 if ("message" in data) {
+			 this.onMessage(data.message);
+		 } 
+		
+	 }),
+	 
 	 
 	     finalize(() => {
              this.onFinalize();
@@ -70,8 +82,16 @@ get(rout) {
   post(rout,data) {
 	  
 	 this.onRequest();
-	 return this.http.post<apimessage>(this.apiurl+rout,data).pipe(
+	 return this.http.post<any>(this.apiurl+rout,data).pipe(
      retryWithBackoff(1000),	
+	 
+	 tap((data)=>{
+		 
+		 if ("message" in data) {
+			 this.onMessage(data.message);
+		 } 
+		
+	 }),
 	 
 	     finalize(() => {
              this.onFinalize();
@@ -93,7 +113,3 @@ get(rout) {
   
 }
 
-interface apimessage {
-  status: any;
-  message: any;
-}
