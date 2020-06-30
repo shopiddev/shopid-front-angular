@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ShopidHttpApiService } from '../services/shopid-http-api.service';
+
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor() { }
+  constructor(public api: ShopidHttpApiService) { }
+  
+username; 
+password; 
 
   ngOnInit(): void {
   }
+  
+    signup() {
+		this.api.Post("signup/",{"username":this.username,"password":this.password}).subscribe((response)=>{
+			
+			alert(response.message);
+			
+		});
+	}
 
 }

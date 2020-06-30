@@ -19,18 +19,11 @@ export class AppComponent {
 		
 			
 
-
-	this.api.Login("a","b").subscribe((res) => {
-  
-         alert(res.message);
-		 
-		 	this.api.GetProduct("p1").subscribe((res2) => {
+		 	this.api.Get("p1").subscribe((res2) => {
   
 				alert(res2.message);
   
 			});
-  
-    });
 
 
 	

@@ -31,13 +31,14 @@ status = "idle";
    
   }
   
-  Login(username,password) {
-	  return this.http.post("login/",{"username":username,"password":password});
+  
+  
+  Post(rout,param) {
+	  return this.http.post(rout,param);
   }
   
-  
-  GetProduct(id) {
-	  return this.http.get("product/"+id);
+  Get(rout) {
+	  return this.http.get(rout);
   }
 
   

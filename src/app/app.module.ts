@@ -13,11 +13,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
+import { FormsModule } from '@angular/forms';
+
 const appRoutes: Routes = [
 
 
   { path: 'addnew', component: AddnewComponent , canActivate:[AuthService]},
+  
+  { path: 'login', component: LoginComponent},
 
+  { path: 'signup', component: SignUpComponent},
 
 
 ];
@@ -34,6 +39,7 @@ const appRoutes: Routes = [
     BrowserModule,
     AppRoutingModule,
 	HttpClientModule,
+	FormsModule,
 	RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
