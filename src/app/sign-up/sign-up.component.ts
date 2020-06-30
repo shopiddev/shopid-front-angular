@@ -17,6 +17,7 @@ password;
   }
   
     signup() {
+		
 		this.api.Post("signup",{"username":this.username,"password":this.password}).subscribe((response)=>{
 			
             if ("token" in response) {
@@ -24,6 +25,7 @@ password;
 			} 
 			
 		});
+		
 	}
 
 }

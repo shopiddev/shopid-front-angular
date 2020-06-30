@@ -7,13 +7,17 @@ import {Injectable} from "@angular/core";
 })
 export class AuthService implements CanActivate{
 
-  constructor() { }
+   constructor(private router: Router){}
   
   canActivate(route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean
     {
 	
-	return true;
+	if (localStorage.getItem('token')) {
+        return true;
+      } else {
+        this.router.navigate(["/login"]);
+      }
 	
 	
 	}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ShopidHttpApiService } from '../services/shopid-http-api.service';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  constructor(public api: ShopidHttpApiService) { }
+  
+username; 
+password; 
 
   ngOnInit(): void {
   }
+  
+      login() {
+		
+		this.api.Post("login",{"username":this.username,"password":this.password}).subscribe((response)=>{
+			
+            if ("token" in response) {
+				 localStorage.setItem('token', response.token);
+			} 
+			
+		});
+		
+	}
 
 }
