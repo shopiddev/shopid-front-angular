@@ -1,0 +1,11 @@
+{
+"addnew":"Add New",
+"signup":"Sign-Up",
+
+"errors":{
+          "unknown":"An unknown error",
+          "401":"You must login",
+		  "999":"Request Timed Out"
+		 }
+
+}

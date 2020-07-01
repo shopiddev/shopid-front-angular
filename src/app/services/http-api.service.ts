@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+import {TranslateService} from '@ngx-translate/core';
+
+
 import { EMPTY,Observable ,of,throwError,TimeoutError } from 'rxjs';
 import { catchError,retry,shareReplay , delay,mergeMap, retryWhen,tap,finalize,timeout} from 'rxjs/operators';
 
@@ -77,7 +80,7 @@ onRequest;
 onFinalize;
 onMessage;
 
-constructor(private http: HttpClient) { }
+constructor(private http: HttpClient, public translate: TranslateService) { }
 
 
 
@@ -115,14 +118,10 @@ get(rout) {
 	 
 	catchError((e)=>
 	{
-		
-	let errorMessage = {
-		
-		"401":"mustlogin",
-		"999":"timeout"
-		
-	};
-	
+
+this.translate.get(['errors'])
+ .subscribe(translations => {
+ 
 
 
 	     	var er;
@@ -134,20 +133,29 @@ get(rout) {
 			
     let ermsg;
 	
-	if (er in errorMessage) {
+	if (typeof translations.errors[er] != "undefined") {
 		
-		ermsg = errorMessage[er];
+		
+		ermsg = translations.errors[er];
+		
+		
 	} else {
 		
-		ermsg = "unknown error";
+	
+		ermsg = translations.errors["unknown"];
 		
 	}
 	 
    
 	this.onError(ermsg);
-		
-			
-			return EMPTY;
+	
+	return EMPTY;
+ 
+  
+ });
+ 
+	
+	
 	
 	}
 	)

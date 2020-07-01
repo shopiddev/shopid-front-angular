@@ -15,6 +15,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 
 import { FormsModule } from '@angular/forms';
 
+import { HttpClient } from '@angular/common/http';
+
+
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
 const appRoutes: Routes = [
 
 
@@ -27,6 +33,10 @@ const appRoutes: Routes = [
 
 ];
 
+export function createTranslateLoader(http: HttpClient) {
+ return new TranslateHttpLoader(http);
+}
+
 
 @NgModule({
   declarations: [
@@ -37,6 +47,13 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+	TranslateModule.forRoot({
+		loader: {
+		provide: TranslateLoader,
+		useFactory: createTranslateLoader,
+		deps: [HttpClient]
+		}
+	}),
     AppRoutingModule,
 	HttpClientModule,
 	FormsModule,
