@@ -20,7 +20,7 @@ status = "idle";
 					   
    if (localStorage.getItem('token')) {
 	   
-	   this.http.headers.Authorization = "Bearer x"+localStorage.getItem('token');
+	   this.http.headers.Authorization = "Bearer "+localStorage.getItem('token');
 	   
    }					   
    
@@ -36,13 +36,13 @@ status = "idle";
    }
    
    this.http.onError = function (e) {
-	   self.status = "error";
-	
-     console.log(e);
-		   self.fm.fire({
+	 self.status = "error";
+
+		
+	self.fm.fire({
 			   "type":"error"
 			   ,
-			   "message":e.message
+			   "message":e
 			   });
   
 	   
