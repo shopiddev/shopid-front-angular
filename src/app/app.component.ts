@@ -18,14 +18,11 @@ export class AppComponent {
 		
 		
 			
-/*
-		 	this.api.Get("p1").subscribe((res2) => {
-  
-				alert(res2.message);
-  
-			});
-
-*/
+		this.api.Get("user").subscribe((response)=>{
+			
+              alert(response.id);
+			
+		});
 	
 	
 	}

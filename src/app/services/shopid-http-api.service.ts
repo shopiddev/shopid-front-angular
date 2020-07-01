@@ -10,6 +10,19 @@ export class ShopidHttpApiService {
 status = "idle";
 
   constructor(private http: HttpApiService , private fm: FireMessageService) {
+	  
+   this.http.apiurl = "http://127.0.0.1:8000/api/";
+   
+   this.http.headers = {};
+   
+   this.http.headers.Accept = "application/json";
+  
+					   
+   if (localStorage.getItem('token')) {
+	   
+	   this.http.headers.Authorization = "Bearer x"+localStorage.getItem('token');
+	   
+   }					   
    
    var self = this;
 	 
@@ -23,8 +36,16 @@ status = "idle";
    }
    
    this.http.onError = function (e) {
-	   self.status = e;
-	   alert(e);
+	   self.status = "error";
+	
+     console.log(e);
+		   self.fm.fire({
+			   "type":"error"
+			   ,
+			   "message":e.message
+			   });
+  
+	   
    }
    
    

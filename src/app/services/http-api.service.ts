@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { EMPTY,Observable ,of,throwError} from 'rxjs';
-import { catchError,retry,shareReplay , delay,mergeMap, retryWhen,tap,finalize} from 'rxjs/operators';
+import { catchError,retry,shareReplay , delay,mergeMap, retryWhen,tap,finalize,timeout} from 'rxjs/operators';
 
 const getErrorMessage = (maxRetry: number) =>
 `error ${maxRetry}`;
@@ -15,11 +15,17 @@ export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 100
 	 
 	 mergeMap(error => {
 	 
-	 if (retries-- > 0) {
+	
+	 
+	 if (error.status != 401 && retries-- > 0) {
 	   const backoffTime = delayMs + (maxRetry - retries) * backoffMs;
 	   return of(error).pipe(delay(backoffTime));
 	 }
-	  return throwError(getErrorMessage(maxRetry));
+	
+
+	  return throwError(error.error);
+ 
+	  
 	 }
 	 
 	 ))));
@@ -31,8 +37,8 @@ export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 100
 })
 export class HttpApiService {
 
-apiurl = "http://echo.jsontest.com/message/";
-//apiurl = "http://localhost/j.php?";
+apiurl;
+headers;
 
 
 onError;
@@ -47,8 +53,16 @@ constructor(private http: HttpClient) { }
 
 get(rout) {
 	this.onRequest();
-	return this.http.get<any>(this.apiurl+rout).pipe(
+	return this.http.get<any>(this.apiurl+rout,{
+		
+		headers:this.headers,
+		
+	}).pipe(
+	
+	
      retryWithBackoff(500),	
+	 
+	  timeout(3000),
 	 
 	 tap((data)=>{
 		 
@@ -66,7 +80,8 @@ get(rout) {
 	 
 	catchError((e)=>
 	{
-		
+	
+console.log(e);
 	this.onError(e);
     return EMPTY;
 	
@@ -82,9 +97,13 @@ get(rout) {
   post(rout,data) {
 	  
 	 this.onRequest();
-	 return this.http.post<any>(this.apiurl+rout,data).pipe(
+	 return this.http.post<any>(this.apiurl+rout,data,{
+		 
+		 headers:this.headers,
+		 
+	 }).pipe(
      retryWithBackoff(1000),	
-	 
+	 timeout(3000),
 	 tap((data)=>{
 		 
 		 if ("message" in data) {

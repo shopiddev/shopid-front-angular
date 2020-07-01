@@ -10,13 +10,17 @@ export class FireMessageService {
 
   fire(m) {
 	  
+	  
+	
+	  
+	  
 	  if (m.type == 'error') {
-		   alert("fireError : "+m.text);
+		   alert("fireError : "+m.message);
 	  }
 	  
 	  
 	  if (m.type == 'info') {
-		   alert("fireInfo : "+m.text);
+		   alert("fireInfo : "+m.message);
 	  }
 	 
   }

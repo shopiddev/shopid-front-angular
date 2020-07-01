@@ -18,9 +18,10 @@ password;
   
     signup() {
 		
-		this.api.Post("signup",{"username":this.username,"password":this.password}).subscribe((response)=>{
+		this.api.Post("register",{"username":this.username,"password":this.password}).subscribe((response)=>{
 			
             if ("token" in response) {
+				 alert(response.token);
 				 localStorage.setItem('token', response.token);
 			} 
 			
