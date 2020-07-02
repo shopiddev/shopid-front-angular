@@ -15,8 +15,18 @@ password;
 
   ngOnInit(): void {
 	  
+	  
+	  
   }
   
+  
+  login() {
+	 
+    this.api.Login(this.username,this.password); 	 
+	  
+  }
+  
+  /*
       login() {
 		
 		this.api.Post("login",{"username":this.username,"password":this.password}).subscribe((response)=>{
@@ -28,5 +38,6 @@ password;
 		});
 		
 	}
+	*/
 
 }

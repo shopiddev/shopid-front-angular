@@ -25,6 +25,10 @@ export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 100
 			}
 		}
 		
+		if ("message" in error.error) {
+		 
+			return throwError(error.error.message);
+		}
 		
 		return throwError(error.status);
 		
@@ -100,12 +104,43 @@ get(rout) {
      retryWithBackoff(500),	
 	 
 	 
-	  timeout(5000),
+	  timeout(30*1000),
 	 
 	 tap((data)=>{
 		 
 		 if ("message" in data) {
-			 this.onMessage(data.message);
+			 
+			 this.translate.get(['infos'])
+ .subscribe(translations => {
+ 
+
+
+
+			
+    let msg;
+	
+	if (typeof translations.infos[data.message] != "undefined") {
+		
+		
+		msg = translations.infos[data.message];
+		
+		
+	} else {
+		
+	
+		msg = data.message;
+		
+	}
+	 
+   
+	this.onMessage(msg);
+	
+ 
+  
+ });
+ 
+ 
+			 
 		 } 
 		
 	 }),
@@ -142,7 +177,7 @@ this.translate.get(['errors'])
 	} else {
 		
 	
-		ermsg = translations.errors["unknown"];
+		ermsg = translations.errors["unknown"]+" : "+er;
 		
 	}
 	 
@@ -165,7 +200,118 @@ this.translate.get(['errors'])
 	
 }
 
+post(rout,params) {
+	
+	
+	
+	this.onRequest();
+	return this.http.post<any>(this.apiurl+rout,params,{
+		
+		headers:this.headers,
+		
+	}).pipe(
+	
+	
+     retryWithBackoff(500),	
+	 
+	 
+	  timeout(30*1000),
+	 
+	 tap((data)=>{
+		 
+		 if ("message" in data) {
+			 
+			 
+			 this.translate.get(['infos'])
+ .subscribe(translations => {
+ 
+
+
+
+			
+    let msg;
+	
+	if (typeof translations.infos[data.message] != "undefined") {
+		
+		
+		msg = translations.infos[data.message];
+		
+		
+	} else {
+		
+	
+		msg = data.message;
+		
+	}
+	 
+   
+	this.onMessage(msg);
+	
+ 
   
+ });
+ 
+ 
+		 } 
+		
+	 }),
+	 
+	 
+	     finalize(() => {
+             this.onFinalize();
+         }),
+
+	 
+	catchError((e)=>
+	{
+
+this.translate.get(['errors'])
+ .subscribe(translations => {
+ 
+
+
+	     	var er;
+			if (e instanceof TimeoutError) {
+				er = 999;
+			} else {
+				er = e;
+			}
+			
+    let ermsg;
+	
+	if (typeof translations.errors[er] != "undefined") {
+		
+		
+		ermsg = translations.errors[er];
+		
+		
+	} else {
+		
+	
+		ermsg = translations.errors["unknown"]+" : "+er;
+		
+	}
+	 
+   
+	this.onError(ermsg);
+	
+	return EMPTY;
+ 
+  
+ });
+ 
+	
+	
+	
+	}
+	)
+	 
+	 
+	);	
+	
+}
+  
+  /*
   post(rout,data) {
 	  
 	 this.onRequest();
@@ -209,7 +355,7 @@ this.translate.get(['errors'])
 	 
   }
   
-
+*/
   
 }
 

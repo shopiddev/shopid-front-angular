@@ -51,7 +51,11 @@ status = "idle";
    
    this.http.onMessage = function (m) {
       
-	 self.fm.fire(m);
+		self.fm.fire({
+			   "type":"info"
+			   ,
+			   "message":m
+			   });
 	  
    }
    
@@ -68,5 +72,35 @@ status = "idle";
 	  return this.http.get(rout);
   }
 
+  
+  
+  
+  
+  
+  
+  Login(user,pass) {
+		
+		this.Post("login",{"username":user,"password":pass}).subscribe((response)=>{
+			
+            if ("token" in response) {
+				 localStorage.setItem('token', response.token);
+			} 
+			
+		});
+		
+	}
+  
+  Signup(user,pass) {
+		
+		this.Post("register",{"username":user,"password":pass}).subscribe((response)=>{
+			
+            if ("token" in response) {
+				localStorage.setItem('token', response.token);
+			} 
+			
+		});
+		
+	}
+  
   
 }

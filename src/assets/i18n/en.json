@@ -1,11 +1,27 @@
 {
 "addnew":"Add New",
 "signup":"Sign-Up",
+"login":"LogIn",
 
 "errors":{
           "unknown":"An unknown error",
           "401":"You must login",
-		  "999":"Request Timed Out"
+		  "999":"Request Timed Out",
+		  "500":"Server error",
+		  
+		  "wrong-user-pass":"worng user name or password",
+		  
+		  "signup-failed":"error in sign up"
+		  
 		 }
 
+,		 
+"infos": {
+          "banned":"you are banned",
+		  "loggedin":"welcome ! \n you are loggen in ",
+		  "signedup":"\n ****welcome**** ! \n you are signed up "
+		  
+		 }
+
+		 
 }
