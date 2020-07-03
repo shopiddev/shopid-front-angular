@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpApiService } from './http-api.service';
 import { FireMessageService } from './fire-message.service';
-
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -90,15 +90,28 @@ status = "idle";
 		
 	}
   
-  Signup(user,pass) {
+  Signup(user,pass): Observable<any> {
 		
-		this.Post("register",{"username":user,"password":pass}).subscribe((response)=>{
+		
+		
+		return new Observable(o=> {
+					
+			this.Post("register",{"username":user,"password":pass}).subscribe((response)=>{
 			
             if ("token" in response) {
 				localStorage.setItem('token', response.token);
+
+				o.next("ok");
+				
 			} 
-			
+
 		});
+		
+		});
+		
+
+		
+
 		
 	}
   

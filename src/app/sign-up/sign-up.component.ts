@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopidHttpApiService } from '../services/shopid-http-api.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sign-up',
@@ -14,22 +15,24 @@ username;
 password; 
 
   ngOnInit(): void {
+	  
+	    /* const mani = new Observable(o=> {
+          o.next("gggg");
+        });
+
+
+        mani.subscribe((d)=>{
+         alert(d);
+        });
+		*/
   }
   
     signup() {
 		
-		this.api.Signup(this.username,this.password);
-		/*
-		
-		this.api.Post("register",{"username":this.username,"password":this.password}).subscribe((response)=>{
-			
-            if ("token" in response) {
-				 alert(response.token);
-				 localStorage.setItem('token', response.token);
-			} 
-			
-		});
-		*/
+		this.api.Signup(this.username,this.password).subscribe((status)=>{
+              alert(status);
+        });
+
 	}
 
 }
