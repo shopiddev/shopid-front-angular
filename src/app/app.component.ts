@@ -25,7 +25,9 @@ export class AppComponent {
   }
 
 ngOnInit() {
-		
+	
+	
+  
 
 /*
  this.translate.get(['addnew'])

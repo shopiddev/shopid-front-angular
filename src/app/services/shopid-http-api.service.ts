@@ -38,15 +38,25 @@ export function Authfailed(a) {
 export class ShopidHttpApiService {
 
 status = "idle";
+isAuthed = false;
+role = "-1";
 
 
   constructor(private http: HttpApiService , private fm: FireMessageService) {
+	  
+	  if (typeof localStorage.getItem('token') != "undefined") {
+		  this.isAuthed = true; 
+		  this.role =  localStorage.getItem('role');	
+	  }
+	 	
+     
 	  
    this.http.apiurl = "http://127.0.0.1:8000/api/";
    
    this.http.headers = {};
    
    this.http.headers.Accept = "application/json";
+  
   
 					   
    if (localStorage.getItem('token')) {
@@ -122,7 +132,12 @@ status = "idle";
 			if ("token" in data) {
 				
 				 localStorage.setItem('token', data.token);	
-                 localStorage.setItem('role', data.role);						 
+                 localStorage.setItem('role', data.user.role);		
+
+
+				this.isAuthed = true; 
+				this.role =  data.user.role;	
+		  
 				 
 			} 
 			
@@ -152,7 +167,11 @@ status = "idle";
 			if ("token" in data) {
 				
 				 localStorage.setItem('token', data.token);	
-				 localStorage.setItem('role', data.role);					 
+				 localStorage.setItem('role', data.user.role);	
+
+				this.isAuthed = true; 
+				this.role =  data.user.role;	
+				 
 				 
 			} 
 			
