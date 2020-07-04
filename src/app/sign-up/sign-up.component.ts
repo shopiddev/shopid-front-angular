@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ShopidHttpApiService } from '../services/shopid-http-api.service';
+import { ShopidHttpApiService ,Authfailed,AuthSuccessed} from '../services/shopid-http-api.service';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -16,23 +16,27 @@ password;
 
   ngOnInit(): void {
 	  
-	    /* const mani = new Observable(o=> {
-          o.next("gggg");
-        });
 
-
-        mani.subscribe((d)=>{
-         alert(d);
-        });
-		*/
   }
   
     signup() {
-		
-		this.api.Signup(this.username,this.password).subscribe((status)=>{
-              alert(status);
-        });
+			
+		this.api.Signup(this.username,this.password).pipe(
+	
 
+		 AuthSuccessed(() => {
+            alert("xlogged in");
+         })
+		 ,
+		 Authfailed(() => {
+            alert("xfailx ...");
+         })
+		 
+		 
+		 
+	).subscribe();	
+	
+	
 	}
 
 }

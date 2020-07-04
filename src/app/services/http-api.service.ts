@@ -5,7 +5,7 @@ import {TranslateService} from '@ngx-translate/core';
 
 
 import { EMPTY,Observable ,of,throwError,TimeoutError } from 'rxjs';
-import { catchError,retry,shareReplay , delay,mergeMap, retryWhen,tap,finalize,timeout} from 'rxjs/operators';
+import { takeUntil ,catchError,retry,shareReplay , delay,mergeMap, retryWhen,tap,finalize,timeout} from 'rxjs/operators';
 
 
 
@@ -27,10 +27,17 @@ export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 100
 		
 		if ("message" in error.error) {
 		 
+		  
 			return throwError(error.error.message);
+			
+		} else {
+			
+			
+		    return throwError(error.status);
+			
+			
 		}
 		
-		return throwError(error.status);
 		
 		
 		}
@@ -43,31 +50,9 @@ export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 100
 }
 
 
-/*
-export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 1000) {
-  let retries = maxRetry;
-  return (src: Observable<any>) =>
-  src.pipe(
-    retryWhen((errors:Observable<any>) => errors.pipe(
-	 
-	 mergeMap(error => {
-	 
-	
-	 
-	 if (error.status != 401 && retries-- > 0) {
-	   const backoffTime = delayMs + (maxRetry - retries) * backoffMs;
-	   return of(error).pipe(delay(backoffTime));
-	 }
-	
 
-	  return error;
- 
-	  
-	 }
-	 
-	 ))));
-}
-*/
+
+
 
 
 @Injectable({
@@ -93,6 +78,7 @@ get(rout) {
 	
 	
 	
+	
 	this.onRequest();
 	return this.http.get<any>(this.apiurl+rout,{
 		
@@ -106,9 +92,13 @@ get(rout) {
 	 
 	  timeout(30*1000),
 	 
-	 tap((data)=>{
+	     tap({
+      next: data => {
+
+	  
 		 
 		 if ("message" in data) {
+			 
 			 
 			 this.translate.get(['infos'])
  .subscribe(translations => {
@@ -140,19 +130,12 @@ get(rout) {
  });
  
  
-			 
 		 } 
-		
-	 }),
-	 
-	 
-	     finalize(() => {
-             this.onFinalize();
-         }),
-
-	 
-	catchError((e)=>
-	{
+	
+	  
+      },
+      error: e => {
+        
 
 this.translate.get(['errors'])
  .subscribe(translations => {
@@ -184,16 +167,23 @@ this.translate.get(['errors'])
    
 	this.onError(ermsg);
 	
-	return EMPTY;
+	
  
   
  });
  
-	
-	
-	
-	}
-	)
+      },
+      complete: () => { 
+	  this.onFinalize();
+	  
+	  }
+    })
+	 
+	 
+
+
+	 
+
 	 
 	 
 	);	
@@ -217,7 +207,10 @@ post(rout,params) {
 	 
 	  timeout(30*1000),
 	 
-	 tap((data)=>{
+	     tap({
+      next: data => {
+
+	  
 		 
 		 if ("message" in data) {
 			 
@@ -253,17 +246,11 @@ post(rout,params) {
  
  
 		 } 
-		
-	 }),
-	 
-	 
-	     finalize(() => {
-             this.onFinalize();
-         }),
-
-	 
-	catchError((e)=>
-	{
+	
+	  
+      },
+      error: e => {
+        
 
 this.translate.get(['errors'])
  .subscribe(translations => {
@@ -295,67 +282,29 @@ this.translate.get(['errors'])
    
 	this.onError(ermsg);
 	
-	return EMPTY;
+	
  
   
  });
  
-	
-	
-	
-	}
-	)
+      },
+      complete: () => { 
+	  this.onFinalize();
+	  
+	  }
+    })
+	 
+	 
+
+
+	 
+
 	 
 	 
 	);	
 	
 }
-  
-  /*
-  post(rout,data) {
-	  
-	 this.onRequest();
-	 return this.http.post<any>(this.apiurl+rout,data,{
-		 
-		 headers:this.headers,
-		 
-	 }).pipe(
-     retryWithBackoff(1000),	
-	 timeout(3000),
-	 tap((data)=>{
-		 
-		 if ("message" in data) {
-			 this.onMessage(data.message);
-		 } 
-		
-	 }),
-	 
-	     finalize(() => {
-             this.onFinalize();
-         }),
-	 
-	catchError((e)=>
-	{
-		var er;
-			if (e instanceof TimeoutError) {
-				er = throwError('Timeout Exception');
-			} else {
-				er = throwError(e);
-			}
 
-			 
-   
-			this.onError(er);
-			return EMPTY;
-	}
-	)
-	 
-	 
-	);	
-	 
-  }
-  
-*/
   
 }
 

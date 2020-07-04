@@ -2,12 +2,43 @@ import { Injectable } from '@angular/core';
 import { HttpApiService } from './http-api.service';
 import { FireMessageService } from './fire-message.service';
 import { Observable } from 'rxjs';
+
+import { takeUntil ,catchError,retry,shareReplay , delay,mergeMap, retryWhen,tap,finalize,timeout} from 'rxjs/operators';
+
+export function AuthSuccessed(a) {
+
+
+ return function (obs: Observable<any>) { 
+	return obs.pipe(
+    tap({
+      next: data => {
+         a();
+       }
+       })		  
+	 )
+	}
+  }
+
+export function Authfailed(a) {
+
+		 return function (obs: Observable<any>) { 
+		  return obs.pipe(
+			tap({
+			error: error => {
+				a();
+			}
+			})	  
+		  )
+		 }	
+  }
+
 @Injectable({
   providedIn: 'root'
 })
 export class ShopidHttpApiService {
 
 status = "idle";
+
 
   constructor(private http: HttpApiService , private fm: FireMessageService) {
 	  
@@ -74,46 +105,68 @@ status = "idle";
 
   
   
+
   
   
-  
-  
+
   Login(user,pass) {
-		
-		this.Post("login",{"username":user,"password":pass}).subscribe((response)=>{
+	  
+	
+	
+	return this.Post("login",{"username":user,"password":pass}).pipe(
+	
+		tap((data)=>{
 			
-            if ("token" in response) {
-				 localStorage.setItem('token', response.token);
+			
+			
+			if ("token" in data) {
+				
+				 localStorage.setItem('token', data.token);		            				 
+				 
 			} 
 			
-		});
-		
+			
+		}),
+
+
+		 
+	);	
+	
+	
+
+	
+	}
+	
+	
+	 Signup(user,pass) {
+	  
+	
+	
+	return this.Post("register",{"username":user,"password":pass}).pipe(
+	
+		tap((data)=>{
+			
+			
+			
+			if ("token" in data) {
+				
+				 localStorage.setItem('token', data.token);		            				 
+				 
+			} 
+			
+			
+		}),
+
+
+		 
+	);	
+	
+	
+
+	
 	}
   
-  Signup(user,pass): Observable<any> {
-		
-		
-		
-		return new Observable(o=> {
-					
-			this.Post("register",{"username":user,"password":pass}).subscribe((response)=>{
-			
-            if ("token" in response) {
-				localStorage.setItem('token', response.token);
-
-				o.next("ok");
-				
-			} 
-
-		});
-		
-		});
-		
-
-		
-
-		
-	}
+ 
   
   
 }
