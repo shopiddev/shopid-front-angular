@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopidHttpApiService ,Authfailed,AuthSuccessed} from '../services/shopid-http-api.service';
-import { Observable } from 'rxjs';
+
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
@@ -9,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class SignUpComponent implements OnInit {
 
-  constructor(public api: ShopidHttpApiService) { }
+  constructor(public api: ShopidHttpApiService,private router: Router) { }
   
 username; 
 password; 
@@ -25,11 +26,13 @@ password;
 	
 
 		 AuthSuccessed(() => {
-            alert("xlogged in");
+            
+			
+			this.router.navigateByUrl('/addnew');
          })
 		 ,
 		 Authfailed(() => {
-            alert("xfailx ...");
+            alert("failed to sign up ...");
          })
 		 
 		 

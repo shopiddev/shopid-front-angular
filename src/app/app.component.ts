@@ -35,12 +35,14 @@ ngOnInit() {
   
  });
 	*/		
+	
+	/*
 		this.api.Get("user").subscribe((response)=>{
 			
               alert(response.id);
 			
 		});
-	    
+	  */  
 	
 	}
 	

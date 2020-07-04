@@ -20,6 +20,7 @@ import { HttpClient } from '@angular/common/http';
 
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { LogoutComponent } from './logout/logout.component';
 
 const appRoutes: Routes = [
 
@@ -29,6 +30,8 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent},
 
   { path: 'signup', component: SignUpComponent},
+  
+  { path: 'logout', component: LogoutComponent},
 
 
 ];
@@ -43,7 +46,8 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     AddnewComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,

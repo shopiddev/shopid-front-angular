@@ -121,7 +121,8 @@ status = "idle";
 			
 			if ("token" in data) {
 				
-				 localStorage.setItem('token', data.token);		            				 
+				 localStorage.setItem('token', data.token);	
+                 localStorage.setItem('role', data.role);						 
 				 
 			} 
 			
@@ -150,7 +151,8 @@ status = "idle";
 			
 			if ("token" in data) {
 				
-				 localStorage.setItem('token', data.token);		            				 
+				 localStorage.setItem('token', data.token);	
+				 localStorage.setItem('role', data.role);					 
 				 
 			} 
 			

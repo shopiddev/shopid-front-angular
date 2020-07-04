@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopidHttpApiService ,Authfailed,AuthSuccessed} from '../services/shopid-http-api.service';
 
-import { finalize,tap,catchError} from 'rxjs/operators';
 
-import { Observable,EMPTY,throwError} from 'rxjs';
+
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +14,7 @@ import { Observable,EMPTY,throwError} from 'rxjs';
 
 
 export class LoginComponent implements OnInit {
-
-  constructor(public api: ShopidHttpApiService) { }
+  constructor(public api: ShopidHttpApiService,private router: Router) { }
   
 username; 
 password; 
@@ -27,11 +26,7 @@ password;
   }
 
 
-    
-  
-  
-    
-  
+
 
   
   login() {
@@ -40,11 +35,11 @@ password;
 	
 
 		 AuthSuccessed(() => {
-            alert("logged in");
+           this.router.navigateByUrl('/addnew');
          })
 		 ,
 		 Authfailed(() => {
-            alert("fail ...");
+            alert("fail ..."); 
          })
 		 
 		 

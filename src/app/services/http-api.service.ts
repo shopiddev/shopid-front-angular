@@ -149,6 +149,8 @@ this.translate.get(['errors'])
 				er = e;
 			}
 			
+			
+			
     let ermsg;
 	
 	if (typeof translations.errors[er] != "undefined") {

@@ -2,8 +2,10 @@
 "addnew":"Add New",
 "signup":"Sign-Up",
 "login":"LogIn",
+"logout":"LogOut",
 
 "errors":{
+
           "unknown":"An unknown error",
           "401":"You must login",
 		  "999":"Request Timed Out",
