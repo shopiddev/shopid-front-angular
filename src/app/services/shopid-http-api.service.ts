@@ -188,6 +188,12 @@ role = "-1";
 	}
   
  
+ 
+  AddNewProduct(param) {
+	  
+	  return this.Post("addnew",param);
+	
+  }
   
   
 }

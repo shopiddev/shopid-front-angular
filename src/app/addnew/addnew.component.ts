@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ShopidHttpApiService } from '../services/shopid-http-api.service';
+import { tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-addnew',
@@ -7,9 +9,32 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddnewComponent implements OnInit {
 
-  constructor() { }
+  constructor(public api: ShopidHttpApiService) { }
 
   ngOnInit(): void {
+	  
+	  this.api.AddNewProduct(
+	  
+		 {
+				
+			"title":"t1",
+			
+		    "caption":"c1",
+		  
+		  }
+	  
+	  ).pipe(
+	  
+	   tap({
+			next: response => {
+        
+		         alert("added"+ response.id);
+		
+			}
+       })	
+	  
+	  ).subscribe();
+	  
   }
 
 }
