@@ -21,8 +21,23 @@ password;
   }
   
     signup() {
+		
+	this.api.Signup({"username":this.username,"password" : this.password},
+	
+
+		 AuthSuccessed(() => {
+		   alert("ginded ..."); 
+           this.router.navigateByUrl('/addnew');
+         })
+		 ,
+		 Authfailed(() => {
+            alert("failed ..."); 
+         })	 
+		 
+	);	
+	
 			
-		this.api.Signup(this.username,this.password).pipe(
+		/*this.api.Signup(this.username,this.password).pipe(
 	
 
 		 AuthSuccessed(() => {
@@ -38,7 +53,7 @@ password;
 		 
 		 
 	).subscribe();	
-	
+	*/
 	
 	}
 

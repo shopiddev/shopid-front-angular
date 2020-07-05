@@ -1,1 +1,7 @@
 <p>addnew works!</p>
+
+<input [(ngModel)]="title" type="text" placeholder="title"/>
+<br>
+<textarea [(ngModel)]="caption"  placeholder="caption"></textarea>
+<br>
+<button (click)="post()">post</button>

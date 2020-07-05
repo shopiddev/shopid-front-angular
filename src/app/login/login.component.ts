@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ShopidHttpApiService ,Authfailed,AuthSuccessed} from '../services/shopid-http-api.service';
+import { Observable ,OperatorFunction} from 'rxjs';
+
+
+
 
 
 
@@ -31,23 +35,43 @@ password;
   
   login() {
 	 
-    this.api.Login(this.username,this.password).pipe(
+
+    this.api.Login({"username":this.username,"password" : this.password},
 	
 
 		 AuthSuccessed(() => {
+		   alert("ginded ..."); 
            this.router.navigateByUrl('/addnew');
          })
 		 ,
 		 Authfailed(() => {
-            alert("fail ..."); 
-         })
+            alert("failed ..."); 
+         })	 
 		 
-		 
-		 
-	).subscribe();	
+	);	
 	  
   }
   
+  
+  
+  /*
+  loginx() {
+	 
+    this.api.Login({"username":this.username,"password":this.password},
+	
+	AuthSuccessed(() => {
+           this.router.navigateByUrl('/addnew');
+         })
+		 ,
+		 
+	Authfailed(() => {
+            alert("fail ..."); 
+    })
+		 		 
+    );	
+	  
+  }
+  */
 
 
 }

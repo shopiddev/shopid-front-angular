@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpApiService } from './http-api.service';
 import { FireMessageService } from './fire-message.service';
-import { Observable } from 'rxjs';
+import { Observable , OperatorFunction } from 'rxjs';
 
 import { takeUntil ,catchError,retry,shareReplay , delay,mergeMap, retryWhen,tap,finalize,timeout} from 'rxjs/operators';
 
@@ -105,21 +105,102 @@ role = "-1";
   
   
   
-  Post(rout,param) {
+
+
+  
+  Get(route,ops) {
+	  const operators: [OperatorFunction<any, any>, OperatorFunction<any, any>] = ops;
+	  return this.http.get(route).pipe( ... operators).subscribe();	
+  }
+  
+  
+  Post(route,param,ops) {
+	
+      const operators: [OperatorFunction<any, any>, OperatorFunction<any, any>] = ops;
+	  
+	  
+	  return this.http.post(route,param).pipe( ... operators).subscribe();	
+  }
+  
+
+  
+   Login(param, ... ops) {
+	   
+
+
+const saveauth = tap((data: any)=>{
+			
+			
+			
+			if (data.hasOwnProperty("token")) {
+				
+			
+				 localStorage.setItem('token', data.token);	
+                 localStorage.setItem('role', data.user.role);		
+				 
+				
+
+				this.isAuthed = true; 
+				this.role =  data.user.role;	
+				
+				 
+			} 
+			
+			
+			
+		});
+		
+		
+
+		const loginops = [saveauth].concat(ops);
+   
+     return this.Post("login",param,loginops);
+	 
+	 
+   }
+
+   Signup(param, ... ops) {
+	   
+			const saveauth = tap((data: any)=>{
+			
+			
+			
+			if (data.hasOwnProperty("token")) {
+				
+			
+				 localStorage.setItem('token', data.token);	
+                 localStorage.setItem('role', data.user.role);		
+				 
+				
+
+				this.isAuthed = true; 
+				this.role =  data.user.role;	
+				
+				 
+			} 
+			
+			
+			
+		});
+		
+		
+
+		const signupops = [saveauth].concat(ops);
+     return this.Post("register",param,signupops);
+   }
+
+   
+   
+     Post_old(rout,param) {
 	  return this.http.post(rout,param);
   }
   
-  Get(rout) {
+    Get_old(rout) {
 	  return this.http.get(rout);
   }
 
   
-  
-
-  
-  
-
-  Login(user,pass) {
+  Login_old(user,pass) {/*
 	  
 	
 	
@@ -149,15 +230,13 @@ role = "-1";
 	);	
 	
 	
-
+*/
 	
 	}
 	
 	
-	 Signup(user,pass) {
-	  
-	
-	
+	Signup_old(user,pass) {
+	  /*
 	return this.Post("register",{"username":user,"password":pass}).pipe(
 	
 		tap((data)=>{
@@ -181,7 +260,7 @@ role = "-1";
 
 		 
 	);	
-	
+	*/
 	
 
 	
@@ -189,11 +268,19 @@ role = "-1";
   
  
  
-  AddNewProduct(param) {
+  AddNewProduct(param, ...ops) {
 	  
-	  return this.Post("addnew",param);
+	  return this.Post("addnew",param,ops);
 	
   }
+  
+  
+  List(param, ...ops ) {
+	  
+	  return this.Get("list",ops);
+	
+  }
+
   
   
 }

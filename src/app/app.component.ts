@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { ShopidHttpApiService } from './services/shopid-http-api.service';
 
-import { catchError} from 'rxjs/operators';
+import { tap} from 'rxjs/operators';
 
 
 import {TranslateService} from '@ngx-translate/core';
@@ -26,27 +26,16 @@ export class AppComponent {
 
 ngOnInit() {
 	
+	this.api.List("",
 	
-  
+	  tap({next: response=>{
+		  alert("list");
+	   }
+	   
+	  }));
 
-/*
- this.translate.get(['addnew'])
- .subscribe(translations => {
- 
- alert(translations['addnew']);
-  
- });
-	*/		
-	
-	/*
-		this.api.Get("user").subscribe((response)=>{
-			
-              alert(response.id);
-			
-		});
-	  */  
-	
 	}
 	
-  title = 'shopid-front-angular';
+	
+
 }
