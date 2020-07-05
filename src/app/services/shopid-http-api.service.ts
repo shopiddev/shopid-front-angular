@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpApiService } from './http-api.service';
 import { FireMessageService } from './fire-message.service';
 import { Observable , OperatorFunction } from 'rxjs';
+import {Router} from '@angular/router';
 
 import { takeUntil ,catchError,retry,shareReplay , delay,mergeMap, retryWhen,tap,finalize,timeout} from 'rxjs/operators';
 
@@ -42,11 +43,13 @@ isAuthed = false;
 role = "-1";
 
 
-  constructor(private http: HttpApiService , private fm: FireMessageService) {
+  constructor(private http: HttpApiService , private fm: FireMessageService,private router: Router) {
 	  
-	  if (typeof localStorage.getItem('token') != "undefined") {
+	  if (localStorage.getItem("token") !== null) {
+		
 		  this.isAuthed = true; 
 		  this.role =  localStorage.getItem('role');	
+		  
 	  }
 	 	
      
@@ -123,6 +126,16 @@ role = "-1";
   }
   
 
+  
+  Logout() {
+	  
+	  this.isAuthed = false; 
+	  this.role = "-1";	  
+	  localStorage.removeItem('token');
+	  localStorage.removeItem('role');
+	  this.router.navigateByUrl('/');
+	  
+  }
   
    Login(param, ... ops) {
 	   

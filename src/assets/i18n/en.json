@@ -8,6 +8,7 @@
 
           "unknown":"An unknown error",
           "401":"You must login",
+		  "404":"Requested url not found",
 		  "999":"Request Timed Out",
 		  "500":"Server error",
 		  

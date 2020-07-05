@@ -18,7 +18,7 @@ export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 100
 
 		mergeMap(error => {
 
-		if (error.status !== 401) {
+		if (error.status !== 401 && error.status !== 404) {
 			if (retries-- > 0) {
 			const backoffTime = delayMs + (maxRetry - retries) * backoffMs;
 			return of(error).pipe(delay(backoffTime));
@@ -149,7 +149,9 @@ this.translate.get(['errors'])
 				er = e;
 			}
 			
-			
+			if (er == "") {
+				er = "empty error message";
+			}
 			
     let ermsg;
 	
