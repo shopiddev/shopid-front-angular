@@ -23,18 +23,12 @@ export class AppComponent {
  translate.use('en');
   
   }
+  
+
 
 ngOnInit() {
 	
-	this.api.List("",
-	
-	  tap({next: response=>{
-		  alert("list");
-	   }
-	   
-	  }));
-
-	}
+}
 	
 	
 
