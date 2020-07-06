@@ -22,6 +22,7 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LogoutComponent } from './logout/logout.component';
 import { ListComponent } from './list/list.component';
+import { ProductComponent } from './product/product.component';
 
 
 const appRoutes: Routes = [
@@ -37,6 +38,10 @@ const appRoutes: Routes = [
   { path: 'logout', component: LogoutComponent},
   
   { path: '', component: ListComponent},
+  
+  
+  { path: 'product/:id', component: ProductComponent},
+  
 
 
 ];
@@ -54,6 +59,7 @@ export function createTranslateLoader(http: HttpClient) {
     SignUpComponent,
     LogoutComponent,
     ListComponent,
+    ProductComponent,
     
   ],
   imports: [

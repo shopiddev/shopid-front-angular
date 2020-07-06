@@ -1,1 +1,5 @@
-lsit : <br> <div *ngFor="let item of list">{{item.caption}}</div>
+lsit : <br> 
+
+<div *ngFor="let item of list">
+<a routerLink="/product/{{item.id}}" >{{item.caption}}</a>
+<div>
