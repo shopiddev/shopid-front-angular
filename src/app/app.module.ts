@@ -23,7 +23,7 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { LogoutComponent } from './logout/logout.component';
 import { ListComponent } from './list/list.component';
 import { ProductComponent } from './product/product.component';
-
+import { MaterialModule } from './material/material.module';
 
 const appRoutes: Routes = [
 
@@ -77,7 +77,8 @@ export function createTranslateLoader(http: HttpClient) {
 	RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
+	MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]

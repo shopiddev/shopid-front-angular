@@ -1,6 +1,7 @@
 shopid
 {{this.api.status}}
 <hr>
+<a routerLink="/" >{{ 'home' | translate }}</a> 
 <a routerLink="/addnew" *ngIf="this.api.isAuthed == true && this.api.role == '0'">{{ 'addnew' | translate }}</a> 
 <a *ngIf="this.api.isAuthed == false" routerLink="/signup">{{ 'signup' | translate }}</a> 
 <a *ngIf="this.api.isAuthed == false" routerLink="/login">{{ 'login' | translate }}</a>

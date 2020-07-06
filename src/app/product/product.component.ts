@@ -12,9 +12,9 @@ export class ProductComponent implements OnInit {
   id;
   ngOnInit(): void {
 	  
-    let id = this.route.snapshot.paramMap.get('id');
+    this.id = this.route.snapshot.paramMap.get('id');
 	
-	alert(id);
+	
 	  
   }
 
