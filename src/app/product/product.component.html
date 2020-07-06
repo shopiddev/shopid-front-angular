@@ -1,12 +1,18 @@
-<br><br>
+<br>
 {{product.id}}
 
 <br>
 
-{{product.title}}
+<app-edit-input  [(ngModel)]="product.title" ></app-edit-input>
 
 <br>
 
-{{product.caption}}
+<app-edit-input  [(ngModel)]="product.caption" ></app-edit-input>
+
+
+
+
 
 <button (click)="delete()">delete</button>
+
+<button (click)="update()">update</button>

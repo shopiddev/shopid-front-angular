@@ -234,6 +234,13 @@ const saveauth = tap((data: any)=>{
   }
   
   
+  
+  UpdateProduct(param, ...ops) {
+	  
+	  return this.Post("product/"+param.id+"/update",param,ops);
+	
+  }
+  
   List(param, ...ops ) {
 	  
 	  return this.Get("list",ops);

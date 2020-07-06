@@ -24,6 +24,8 @@ import { LogoutComponent } from './logout/logout.component';
 import { ListComponent } from './list/list.component';
 import { ProductComponent } from './product/product.component';
 import { MaterialModule } from './material/material.module';
+import { EditInputComponent } from './libs/edit-input/edit-input.component';
+
 
 const appRoutes: Routes = [
 
@@ -60,6 +62,8 @@ export function createTranslateLoader(http: HttpClient) {
     LogoutComponent,
     ListComponent,
     ProductComponent,
+    EditInputComponent,
+
     
   ],
   imports: [

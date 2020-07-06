@@ -33,6 +33,19 @@ export class ProductComponent implements OnInit {
 	  
   }
   
+  update() {
+		this.api.UpdateProduct(this.product,
+	
+		tap({next: response=>{
+		  
+			this.router.navigateByUrl('/');
+		  
+		}
+	   
+		})
+	  );    
+  }
+  
   delete() {
 	  
 	this.api.DeleteProduct({"id":this.route.snapshot.paramMap.get('id')},
