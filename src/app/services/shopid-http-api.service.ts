@@ -203,87 +203,33 @@ const saveauth = tap((data: any)=>{
    }
 
    
-   
-     Post_old(rout,param) {
-	  return this.http.post(rout,param);
-  }
-  
-    Get_old(rout) {
-	  return this.http.get(rout);
-  }
+
 
   
-  Login_old(user,pass) {/*
-	  
+  
 	
 	
-	return this.Post("login",{"username":user,"password":pass}).pipe(
 	
-		tap((data)=>{
-			
-			
-			
-			if ("token" in data) {
-				
-				 localStorage.setItem('token', data.token);	
-                 localStorage.setItem('role', data.user.role);		
-
-
-				this.isAuthed = true; 
-				this.role =  data.user.role;	
-		  
-				 
-			} 
-			
-			
-		}),
-
-
-		 
-	);	
-	
-	
-*/
-	
-	}
-	
-	
-	Signup_old(user,pass) {
-	  /*
-	return this.Post("register",{"username":user,"password":pass}).pipe(
-	
-		tap((data)=>{
-			
-			
-			
-			if ("token" in data) {
-				
-				 localStorage.setItem('token', data.token);	
-				 localStorage.setItem('role', data.user.role);	
-
-				this.isAuthed = true; 
-				this.role =  data.user.role;	
-				 
-				 
-			} 
-			
-			
-		}),
-
-
-		 
-	);	
-	*/
-	
-
-	
-	}
   
  
  
   AddNewProduct(param, ...ops) {
 	  
 	  return this.Post("addnew",param,ops);
+	
+  }
+  
+  
+  GetProduct(param, ...ops) {
+	  
+	  return this.Get("product/"+param.id,ops);
+	
+  }
+  
+  
+  DeleteProduct(param, ...ops) {
+	  
+	  return this.Get("product/"+param.id+"/delete",ops);
 	
   }
   

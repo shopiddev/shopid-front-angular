@@ -1,6 +1,6 @@
 
 
 <mat-grid-list [cols]="breakpoint" rowHeight="1:1" (window:resize)="onResize($event)">
-  <mat-grid-tile *ngFor="let item of list"><a routerLink="/product/{{item.id}}" >{{item.caption}}</a></mat-grid-tile>
+  <mat-grid-tile *ngFor="let item of list"><a routerLink="/product/{{item.id}}" >{{item.title}}</a></mat-grid-tile>
 
 </mat-grid-list>
