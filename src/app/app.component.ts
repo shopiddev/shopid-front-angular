@@ -14,17 +14,12 @@ import {TranslateService} from '@ngx-translate/core';
 })
 export class AppComponent {
 	
-	saveCost(value){
-    this.cost=value;
-  }
-	cost = 100;
+
 	
 	
   constructor(public api: ShopidHttpApiService , public translate: TranslateService) { 
   
-  
-  
-  
+
  translate.addLangs(['en','de'])
  translate.setDefaultLang('en');
  translate.use('en');

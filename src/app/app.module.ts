@@ -27,6 +27,7 @@ import { MaterialModule } from './material/material.module';
 import { EditInputComponent } from './libs/edit-input/edit-input.component';
 
 
+
 const appRoutes: Routes = [
 
 
@@ -78,6 +79,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppRoutingModule,
 	HttpClientModule,
 	FormsModule,
+	
 	RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
