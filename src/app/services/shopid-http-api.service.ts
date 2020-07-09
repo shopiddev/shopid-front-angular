@@ -248,5 +248,11 @@ const saveauth = tap((data: any)=>{
   }
 
   
+   SaveSort(param, ...ops ) {
+	  
+	   return this.Post("productSaveSort",param,ops);
+	
+  }
+  
   
 }

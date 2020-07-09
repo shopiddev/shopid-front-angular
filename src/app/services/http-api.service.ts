@@ -17,6 +17,8 @@ export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 100
 		retryWhen((errors:Observable<any>) => errors.pipe(
 
 		mergeMap(error => {
+			
+			
 
 		if (error.status !== 401 && error.status !== 404) {
 			if (retries-- > 0) {
@@ -25,13 +27,18 @@ export function retryWithBackoff(delayMs: number , maxRetry= 2 , backoffMs = 100
 			}
 		}
 		
+		 console.log(error);
+		
 		if ("message" in error.error) {
 		 
+		     
 		  
 			return throwError(error.error.message);
 			
-		} else {
 			
+			
+		} else {
+				
 			
 		    return throwError(error.status);
 			
@@ -98,7 +105,8 @@ get(rout) {
 	  
 		 
 		 if ("message" in data) {
-			 
+		
+	
 			 
 			 this.translate.get(['infos'])
  .subscribe(translations => {
@@ -168,6 +176,7 @@ this.translate.get(['errors'])
 		
 	}
 	 
+	
    
 	this.onError(ermsg);
 	
@@ -268,6 +277,8 @@ this.translate.get(['errors'])
 				er = e;
 			}
 			
+		
+			
     let ermsg;
 	
 	if (typeof translations.errors[er] != "undefined") {
@@ -283,6 +294,8 @@ this.translate.get(['errors'])
 		
 	}
 	 
+   
+   
    
 	this.onError(ermsg);
 	

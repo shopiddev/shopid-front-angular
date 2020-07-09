@@ -37,17 +37,37 @@ constructor(public api: ShopidHttpApiService,private viewportRuler: ViewportRule
 
    list;
  
+ 
+ breakpoint: number = 3;
+  onResize(event) {
+
+
+    if (event.target.innerWidth < 200) {
+      this.breakpoint = 1;
+    }
+
+    if (event.target.innerWidth >= 200 && event.target.innerWidth < 800) {
+      this.breakpoint = 3;
+    }
+
+    if (event.target.innerWidth >= 800) {
+      this.breakpoint = 4;
+    }
+
+  }
+  
+  
   
   ngOnInit(): void {
 	
 	var self = this;
 	setTimeout(function() {
 	
-	  self.api.List("latest",
+	  self.api.List({"latest":"true"},
 	
 	  tap({next: response=>{
 		  
-		  self.list = response;
+
 		  
 		  self.items = response;
 		  
@@ -93,6 +113,9 @@ constructor(public api: ShopidHttpApiService,private viewportRuler: ViewportRule
         return;
       }
     });
+	
+	
+	
   }
 
   dropListDropped(e) {
@@ -110,9 +133,51 @@ constructor(public api: ShopidHttpApiService,private viewportRuler: ViewportRule
 
     this.target = null;
     this.source = null;
+	
+	
+	/**/
+		var x = {"elem":"","between":"","betweenAnd":""};
+		var elemid = this.sourceIndex;
+		x.elem = this.items[elemid];
+		
+	/**/
+	
 
     if (this.sourceIndex != this.targetIndex)
       moveItemInArray(this.items, this.sourceIndex, this.targetIndex);
+  
+
+  
+var between = this.targetIndex-1;
+		
+		var betweenAnd = this.targetIndex+1;
+		
+		//alert("move "+elemid+" between "+between+" & "+betweenAnd);
+		
+
+		
+		
+		
+		
+		
+		
+
+		
+		x.between = this.items[between];
+		
+		x.betweenAnd = this.items[betweenAnd];
+	
+	/*this.api.SaveSort(x,
+	
+	  tap({next: response=>{
+		  
+		  
+	   }
+	   
+	  }));
+	 */
+	  
+	
   }
 
   dropListEnterPredicate = (drag: CdkDrag, drop: CdkDropList) => {
