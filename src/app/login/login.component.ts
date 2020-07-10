@@ -40,7 +40,7 @@ password;
 	
 
 		 AuthSuccessed(() => {
-		   alert("ginded ..."); 
+		   alert("logged in."); 
            this.router.navigateByUrl('/addnew');
          })
 		 ,
@@ -54,24 +54,6 @@ password;
   
   
   
-  /*
-  loginx() {
-	 
-    this.api.Login({"username":this.username,"password":this.password},
-	
-	AuthSuccessed(() => {
-           this.router.navigateByUrl('/addnew');
-         })
-		 ,
-		 
-	Authfailed(() => {
-            alert("fail ..."); 
-    })
-		 		 
-    );	
-	  
-  }
-  */
 
 
 }

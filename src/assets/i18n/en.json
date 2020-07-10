@@ -1,6 +1,7 @@
 {
 "home":"Home",
-"addnew":"Add New",
+"product":"Product",
+"category":"Category",
 "signup":"Sign-Up",
 "login":"LogIn",
 "logout":"LogOut",

@@ -63,7 +63,7 @@ constructor(public api: ShopidHttpApiService,private viewportRuler: ViewportRule
 	var self = this;
 	setTimeout(function() {
 	
-	  self.api.List({"latest":"true"},
+	  self.api.getRequest("list",
 	
 	  tap({next: response=>{
 		  
@@ -167,15 +167,7 @@ var between = this.targetIndex-1;
 		
 		x.betweenAnd = this.items[betweenAnd];
 	
-	/*this.api.SaveSort(x,
-	
-	  tap({next: response=>{
-		  
-		  
-	   }
-	   
-	  }));
-	 */
+
 	  
 	
   }

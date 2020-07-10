@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AuthService } from './services/auth.service';
-import { AddnewComponent } from './addnew/addnew.component';
+
 
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
@@ -25,6 +25,7 @@ import { ListComponent } from './list/list.component';
 import { ProductComponent } from './product/product.component';
 import { MaterialModule } from './material/material.module';
 import { EditInputComponent } from './libs/edit-input/edit-input.component';
+import { CategoryComponent } from './category/category.component';
 
 
 
@@ -32,7 +33,9 @@ const appRoutes: Routes = [
 
 
 
-  { path: 'addnew', component: AddnewComponent , canActivate:[AuthService]},
+
+  
+  { path: 'category', component: CategoryComponent , canActivate:[AuthService]},
   
   { path: 'login', component: LoginComponent},
 
@@ -44,7 +47,7 @@ const appRoutes: Routes = [
   
   
   { path: 'product/:id', component: ProductComponent},
-  
+  { path: 'product', component: ProductComponent},
 
 
 ];
@@ -57,13 +60,13 @@ export function createTranslateLoader(http: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    AddnewComponent,
     LoginComponent,
     SignUpComponent,
     LogoutComponent,
     ListComponent,
     ProductComponent,
     EditInputComponent,
+    CategoryComponent,
 
     
   ],

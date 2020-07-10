@@ -108,21 +108,38 @@ role = "-1";
   
   
   
+  
+  request(type,route,ops,param=null) {
+	  
+	  const operators: [OperatorFunction<any, any>, OperatorFunction<any, any>] = ops;
+	  
+	  if (type == 'post') {
+		  
+		return this.http.post(route,param).pipe( ... operators).subscribe();	
+		 
+	  } 
+	  
+	  if (type == 'get') {
+		   return this.http.get(route).pipe( ... operators).subscribe();	
+	  }
+	  
+	  
+	 
+	  
+  }
 
 
   
-  Get(route,ops) {
-	  const operators: [OperatorFunction<any, any>, OperatorFunction<any, any>] = ops;
-	  return this.http.get(route).pipe( ... operators).subscribe();	
+  getRequest(route, ...ops) {
+	  return this.request("get",route,ops);	  
   }
   
   
-  Post(route,param,ops) {
-	
-      const operators: [OperatorFunction<any, any>, OperatorFunction<any, any>] = ops;
+  postRequest(route,param, ...ops) {
 	  
+
 	  
-	  return this.http.post(route,param).pipe( ... operators).subscribe();	
+	  return this.request("post",route,ops,param);
   }
   
 
@@ -137,7 +154,7 @@ role = "-1";
 	  
   }
   
-   Login(param, ... ops) {
+   Login(param, ...ops) {
 	   
 
 
@@ -166,8 +183,8 @@ const saveauth = tap((data: any)=>{
 		
 
 		const loginops = [saveauth].concat(ops);
-   
-     return this.Post("login",param,loginops);
+  
+        return this.postRequest("login",param, ...loginops);
 	 
 	 
    }
@@ -199,60 +216,14 @@ const saveauth = tap((data: any)=>{
 		
 
 		const signupops = [saveauth].concat(ops);
-     return this.Post("register",param,signupops);
+     return this.postRequest("register",param, ...signupops);
    }
 
    
+  
+  
 
 
-  
-  
-	
-	
-	
-  
- 
- 
-  AddNewProduct(param, ...ops) {
-	  
-	  return this.Post("addnew",param,ops);
-	
-  }
-  
-  
-  GetProduct(param, ...ops) {
-	  
-	  return this.Get("product/"+param.id,ops);
-	
-  }
-  
-  
-  DeleteProduct(param, ...ops) {
-	  
-	  return this.Get("product/"+param.id+"/delete",ops);
-	
-  }
-  
-  
-  
-  UpdateProduct(param, ...ops) {
-	  
-	  return this.Post("product/"+param.id+"/update",param,ops);
-	
-  }
-  
-  List(param, ...ops ) {
-	  
-	  return this.Get("list",ops);
-	
-  }
-
-  
-   SaveSort(param, ...ops ) {
-	  
-	   return this.Post("productSaveSort",param,ops);
-	
-  }
   
   
 }
