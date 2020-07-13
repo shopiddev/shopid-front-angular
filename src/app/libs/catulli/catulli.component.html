@@ -1,0 +1,6 @@
+<ul>
+ <li *ngFor="let cat of cats">{{cat.title}} <app-catulli [parent]="cat.id"></app-catulli></li>
+
+</ul>
+
+ <button (click)="more()">more({{page}})</button>

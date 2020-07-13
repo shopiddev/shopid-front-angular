@@ -13,9 +13,20 @@ export class CategoryComponent implements OnInit {
   
 title;
 
+category;
+
 add() {
 	
-	this.api.postRequest("category",{"title":this.title},
+	var parentid;
+	if (!this.category.id) {
+		parentid = 0;
+	} else {
+		
+		parentid = this.category.id;
+		
+	}
+	
+	this.api.postRequest("category",{"title":this.title,"parent":this.category.id},
 	
 	 tap({next: response=>{
 
