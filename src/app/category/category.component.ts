@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ShopidHttpApiService } from '../services/shopid-http-api.service';
 import { tap} from 'rxjs/operators';
 
+import { CategoryUpdaterService } from '../libs/catulli/category-updater.service';
+
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
@@ -9,11 +11,18 @@ import { tap} from 'rxjs/operators';
 })
 export class CategoryComponent implements OnInit {
 
-  constructor(public api: ShopidHttpApiService) { }
+  constructor(public api: ShopidHttpApiService, private updateService: CategoryUpdaterService) { }
   
 title;
-
 category;
+
+/*
+addToUpdateStack() {
+	
+	console.log(this.updateService.updateStack);
+	
+}
+*/
 
 add() {
 	

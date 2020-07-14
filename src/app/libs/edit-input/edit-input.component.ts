@@ -24,6 +24,8 @@ export class EditInputComponent implements  ControlValueAccessor , OnInit {
   
   @Output() focusOut: EventEmitter<any> = new EventEmitter<any>();
   
+
+  
   editMode = false;
   constructor() {}
   
@@ -36,7 +38,9 @@ export class EditInputComponent implements  ControlValueAccessor , OnInit {
  }
 
   onFocusOut() {
-    this.focusOut.emit(this.data);
+	  
+
+    this.focusOut.emit(this.value);
     this.propagateChange(this.value);
   }
   

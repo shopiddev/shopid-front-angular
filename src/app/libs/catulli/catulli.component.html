@@ -1,6 +1,15 @@
-<ul>
- <li *ngFor="let cat of cats">{{cat.title}} <app-catulli [parent]="cat.id"></app-catulli></li>
+<span (click)="add()">+</span><br><span (click)="remove()">-</span><ul>
+ <li *ngFor="let cat of cats;let i = index"  >
+ <ng-container *ngIf="cat">
+ <app-edit-input  (focusOut)="update(cat.id,$event)" [(ngModel)]="cat.title" ></app-edit-input> 
+ 
+ <app-catulli  [(ngModel)]="this.cats" [index]="i" [parent]="cat.id" ></app-catulli>
+ </ng-container>
+ 
+ </li>
 
 </ul>
 
+<!-->
  <button (click)="more()">more({{page}})</button>
+<-->
