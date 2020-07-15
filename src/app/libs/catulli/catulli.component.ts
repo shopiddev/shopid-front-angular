@@ -30,9 +30,27 @@ export class CatulliComponent  implements  ControlValueAccessor , OnInit {
   add() {
 	
 	  
-	  this.cats.push({"id":"654","title":prompt("enter title")});
+	 
 	  
 	  //call api to add to this.parent
+	   var otherObject: any;
+	  
+	  		this.api.postRequest("category/add",{"title":prompt("enter title"),"parent":this.parent},
+		 
+		 
+		 tap({next: response =>{ 
+		 
+		 otherObject = response;
+		 
+		  this.cats.push({"id":otherObject.id,"title":otherObject.title});
+		 
+		 }
+	   
+		})
+		 
+		 );
+		 
+		 
 	  
   }
 
@@ -44,6 +62,17 @@ export class CatulliComponent  implements  ControlValueAccessor , OnInit {
 		 this.parentarray.splice(this.index, 1);
 		
 		 this.propagateChange(this.parentarray);
+		 
+		 this.api.getRequest("category/"+this.parent+"/delete",
+		 
+		 
+		 tap({next: response =>{ 
+		 
+		 }
+	   
+		})
+		 
+		 );
 		
 		 
   }
@@ -55,10 +84,23 @@ export class CatulliComponent  implements  ControlValueAccessor , OnInit {
   update(id,title) {
             this.updateService.addToUpdateStack({"id":id,"title":title});
 			// or call api update title for id
+			
+		this.api.postRequest("category/"+id+"/update",{"title":title},
+		 
+		 
+		 tap({next: response =>{ 
+		  
+		 }
+	   
+		})
+		 
+		 );
+		 
+		 
   }
   
   more() {
-	
+	// this must be called when scroll to end ...
 	  this.load();
   }
   
