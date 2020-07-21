@@ -1,0 +1,18 @@
+<ul>
+ <li *ngFor="let cat of cats;let i = index"  >
+ <ng-container *ngIf="cat">
+ 
+ <input type="checkbox" [checked]="context.selected_category[cat.id]" (change)="checkValue($event,cat.id)" >
+ 
+   {{cat.title}}
+ <app-list-of-category  [(ngModel)]="this.cats" [index]="i" [parent]="cat.id" [context]="context" ></app-list-of-category>
+ 
+ </ng-container>
+ 
+ </li>
+
+</ul>
+
+<!-->
+ <button (click)="more()">more({{page}})</button>
+<-->

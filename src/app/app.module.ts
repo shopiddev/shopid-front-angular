@@ -27,6 +27,7 @@ import { MaterialModule } from './material/material.module';
 import { EditInputComponent } from './libs/edit-input/edit-input.component';
 import { CategoryComponent } from './category/category.component';
 import { CatulliComponent } from './libs/catulli/catulli.component';
+import { ListOfCategoryComponent } from './list-of-category/list-of-category.component';
 
 
 
@@ -69,6 +70,7 @@ export function createTranslateLoader(http: HttpClient) {
     EditInputComponent,
     CategoryComponent,
     CatulliComponent,
+    ListOfCategoryComponent,
 
     
   ],

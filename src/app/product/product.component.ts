@@ -34,23 +34,35 @@ api2;
 
 
   product;
+  
+
+  
+  selected_category = {};
 
   ngOnInit(): void {
 	  
 	  
-
+ 
 
 
   
 	if (this.route.snapshot.paramMap.get('id')) {
 		
-
+      
 	
 	this.api.getRequest("product/"+this.route.snapshot.paramMap.get('id'),
 	
 		tap({next: response=>{
 		  
 			this.product = response;
+			
+			for (var i = 0 ; i < this.product.cats.length;i++) {
+				
+		
+				
+				 this.selected_category[this.product.cats[i].category_id] = true;
+			}
+			
 		  
 		}
 	   
@@ -70,6 +82,15 @@ api2;
   }
   
   save() {
+	  var selectedcats = [];
+for (var key in this.selected_category) {
+    if (this.selected_category.hasOwnProperty(key)) {
+       selectedcats.push(key);
+    }
+}
+	  
+	  this.product.cats = selectedcats;
+	  
 		this.api.postRequest("product/"+this.route.snapshot.paramMap.get('id'),this.product,
 	
 		tap({next: response=>{
@@ -86,7 +107,7 @@ api2;
   
   delete() {
 	  
-	this.api.getRequest("product/"+this.route.snapshot.paramMap.get('id')+"/"+this.product+"/delete",
+	this.api.getRequest("product/"+this.route.snapshot.paramMap.get('id')+"/delete",
 	
 		tap({next: response=>{
 		  

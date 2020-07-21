@@ -1,11 +1,12 @@
 import { Component, OnInit ,Input ,Output,EventEmitter,forwardRef} from '@angular/core';
 import { ShopidHttpApiService } from '../../services/shopid-http-api.service';
+import { CategoryUpdaterService } from './category-updater.service';
 import { tap} from 'rxjs/operators';
 
 
 import { ControlValueAccessor ,NG_VALUE_ACCESSOR ,NgModel} from '@angular/forms';
 
-import { CategoryUpdaterService } from './category-updater.service';
+
 
 @Component({
   selector: 'app-catulli',
@@ -21,7 +22,7 @@ import { CategoryUpdaterService } from './category-updater.service';
 })
 export class CatulliComponent  implements  ControlValueAccessor , OnInit { 
 
-  constructor(private api: ShopidHttpApiService , private updateService: CategoryUpdaterService) { }
+  constructor(private api: ShopidHttpApiService) { }
   @Input() parent: any;
   @Input() index: number;
   
@@ -82,7 +83,7 @@ export class CatulliComponent  implements  ControlValueAccessor , OnInit {
   page=1;
   
   update(id,title) {
-            this.updateService.addToUpdateStack({"id":id,"title":title});
+          
 			// or call api update title for id
 			
 		this.api.postRequest("category/"+id+"/update",{"title":title},
@@ -169,7 +170,7 @@ export class CatulliComponent  implements  ControlValueAccessor , OnInit {
         registerOnTouched(fn){
         }
 		
-	    private propagateChange = (_:any) => {};	
+	     propagateChange = (_:any) => {};	
 		
 		
 
