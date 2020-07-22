@@ -9,10 +9,31 @@
 
 <app-edit-input  [(ngModel)]="product.caption" ></app-edit-input>
 
+<!--
+<input
+  style="display: none"
+  type="file" (change)="onFileChanged($event)"
+  #fileInput>
+<button (click)="fileInput.click()">Select File</button>
+-->
 
+<input type="file" (change)="fileChangeEvent($event)" />
 
+<div style="width:20%">
+<image-cropper
+    [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true"
+    [aspectRatio]="1 / 1"
+    format="png"
+    (imageCropped)="imageCropped($event)"
+    (imageLoaded)="imageLoaded()"
+    (cropperReady)="cropperReady()"
+    (loadImageFailed)="loadImageFailed()"
+	transform
+></image-cropper>
 
-
+<img [src]="croppedImage" style="max-width:100%" />
+</div>
 
 <button (click)="delete()">delete</button>
 

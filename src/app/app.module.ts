@@ -30,6 +30,8 @@ import { CatulliComponent } from './libs/catulli/catulli.component';
 import { ListOfCategoryComponent } from './list-of-category/list-of-category.component';
 
 
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 
 const appRoutes: Routes = [
 
@@ -91,7 +93,8 @@ export function createTranslateLoader(http: HttpClient) {
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
-	MaterialModule
+	MaterialModule,
+	ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -3,6 +3,11 @@ import { Injectable } from '@angular/core';
 import { ShopidHttpApiService } from '../services/shopid-http-api.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { tap} from 'rxjs/operators';
+
+
+import { ImageCroppedEvent } from 'ngx-image-cropper';
+
+
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -20,6 +25,27 @@ import { tap} from 'rxjs/operators';
 
 
 export class ProductComponent implements OnInit {
+	
+	 imageChangedEvent: any = '';
+    croppedImage: any = '';
+
+    fileChangeEvent(event: any): void {
+        this.imageChangedEvent = event;
+    }
+    imageCropped(event: ImageCroppedEvent) {
+        this.croppedImage = event.base64;
+    }
+    imageLoaded() {
+        // show cropper
+    }
+    cropperReady() {
+        // cropper ready
+    }
+    loadImageFailed() {
+        // show message
+    }
+	
+	//
 
 api2;
 
